@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/cardIcon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7 y Media</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <h1>Juego de Cartas: 7 y media.</h1>
+
+      <div id="pointsDisplay">Puntos: 0</div>
+      <button id="increaseButton" class="upDownButtons">Subir</button>
+      <button id="decreaseButton" class="upDownButtons">Bajar</button>
+      <button id="stayButton">Plantarse</button>
+      <button id="nextMoveButton" class="hiden">
+        ¿Que hubiera pasado si...?
+      </button>
+      <button id="newGameButton" class="hiden">
+        Nueva partida
+      </button>
+
+
+    <br>
+
+    <h2>Carta Aleatoria</h2>
+    <div id="randomCardDisplay">Carta: </div>
+    <button id="randomCardButton">Obtener Carta Aleatoria</button>
+    <br><br>
+  </div>
+  <div>
+    <img id="cartaImagen" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg"
+      alt="Carta">
+  </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+
+</html>
