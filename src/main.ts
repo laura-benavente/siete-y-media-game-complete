@@ -68,26 +68,6 @@ const obtenerNumeroCarta = (numeroAleatorio: number) => {
     }
     return numeroAleatorio;
 };
-
-
-function message (points: number): string {
-  let message = '';
-
-  if (points < 4) {
-      message = "Has sido muy conservador";
-  } else if (points === 5) {
-      message = "Te ha entrado el canguelo eh?";
-  } else if (points >= 6 && points <= 7) {
-      message = "Casi casi...";
-  } else if (points === 7.5) {
-      message = "¡ Lo has clavado! ¡Enhorabuena!";
-  } else if (points > 7.5) {
-      message = "Game Over";
-  }
-
-  return message;
-}
-
 function getValueToSum(carta: number): number {
     if (carta > 7) {
         return 0.5;
@@ -140,7 +120,7 @@ function mostrarCarta(urlCarta: string) {
 function handlePideCartaClick() {
     const carta = dameCarta();
     const numeroCarta = obtenerNumeroCarta(carta);
-    const cartaURL = mapearCartaImagen(numeroCarta);
+    const cartaURL = mapearCartaImagen (numeroCarta);
     mostrarCarta(cartaURL);
     sumarValorCarta(numeroCarta);
 }
