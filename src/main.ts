@@ -21,24 +21,29 @@ function decreasePoints() {
     }
 }
 
-export const obtenerEstadoPartida = (points: number) => {
-    let status = '';
-    stayManageButtons();
+function obtenerMensaje(points: number): string {
+    let message = '';
 
     if (points < 4) {
-        status = 'Has sido muy conservador';
+        message = "Has sido muy conservador";
     } else if (points === 5) {
-        status = 'Te ha entrado el canguelo eh?';
+        message = "Te ha entrado el canguelo eh?";
     } else if (points >= 6 && points <= 7) {
-        status = 'Casi casi...';
+        message = "Casi casi...";
     } else if (points === 7.5) {
-        status = '¡ Lo has clavado! ¡Enhorabuena!';
+        message = "¡ Lo has clavado! ¡Enhorabuena!";
     } else if (points > 7.5) {
-        status = 'Game Over';
+        message = "Game Over";
     }
 
-    return status;
+    return message;
 }
+
+export const obtenerEstadoPartida = (points: number) => {
+    let status = obtenerMensaje(points);
+    stayManageButtons();
+    return status;
+};
 
 function addEventListenerIfButtonExists(id: string, eventType: string, listener: EventListener) {
     const element = document.getElementById(id);
@@ -52,6 +57,10 @@ function addEventListenerIfButtonExists(id: string, eventType: string, listener:
 
 addEventListenerIfButtonExists("increaseButton", "click", increasePoints);
 addEventListenerIfButtonExists("decreaseButton", "click", decreasePoints);
+addEventListenerIfButtonExists("stayButton", "click", () => {
+    const message = obtenerEstadoPartida(points);
+    console.log(message);
+});
 addEventListenerIfButtonExists("newGameButton", "click", newGame);
 addEventListenerIfButtonExists("nextMoveButton", "click", handlePideCartaClick);
 addEventListenerIfButtonExists("randomCardButton", "click", handlePideCartaClick);
@@ -68,6 +77,24 @@ const obtenerNumeroCarta = (numeroAleatorio: number) => {
     }
     return numeroAleatorio;
 };
+
+const cartaImagenes: { [key: number]: string } = {
+    1: "src/assets/images/1_as-copas.jpg",
+    2: "src/assets/images/2_dos-copas.jpg",
+    3: "src/assets/images/3_tres-copas.jpg",
+    4: "src/assets/images/4_cuatro-copas.jpg",
+    5: "src/assets/images/5_cinco-copas.jpg",
+    6: "src/assets/images/6_seis-copas.jpg",
+    7: "src/assets/images/7_siete-copas.jpg",
+    10: "src/assets/images/10_sota-copas.jpg",
+    11: "src/assets/images/11_caballo-copas.jpg",
+    12: "src/assets/images/12_rey-copas.jpg"
+};
+
+function mapearCartaImagen(carta: number): string {
+    return cartaImagenes[carta] || "src/assets/images/back.jpg";
+}
+
 function getValueToSum(carta: number): number {
     if (carta > 7) {
         return 0.5;
@@ -94,15 +121,15 @@ function sumarValorCarta(cardNumber: number) {
 }
 
 function manageFinishGame() {
+    const message = obtenerMensaje(points);
     if (points === 7.5) {
         finishGameManageButtons();
         console.log("Has ganado la partida");
         window.alert("Has ganado la partida");
-    }
-    if (points > 7.5) {
+    } else if (points > 7.5) {
         finishGameManageButtons();
-        console.log("Has perdido la partida");
-        window.alert("Game Over");
+        console.log(message);
+        window.alert(message);
     }
 }
 
@@ -120,7 +147,7 @@ function mostrarCarta(urlCarta: string) {
 function handlePideCartaClick() {
     const carta = dameCarta();
     const numeroCarta = obtenerNumeroCarta(carta);
-    const cartaURL = mapearCartaImagen (numeroCarta);
+    const cartaURL = mapearCartaImagen(numeroCarta);
     mostrarCarta(cartaURL);
     sumarValorCarta(numeroCarta);
 }
@@ -174,7 +201,6 @@ const stayManageButtons = () => {
         stayButton.classList.remove("show");
     }
 };
-addEventListenerIfButtonExists("stayButton", "click", stayManageButtons);
 
 const finishGameManageButtons = () => {
     const newGameButton = document.getElementById("newGameButton");
