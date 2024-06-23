@@ -35,12 +35,12 @@ function obtenerMensaje(points: number): string {
     } else if (points > 7.5) {
         message = "Game Over";
     }
-
     return message;
 }
 
 export const obtenerEstadoPartida = (points: number) => {
     let status = obtenerMensaje(points);
+    window.alert(status);
     stayManageButtons();
     return status;
 };
