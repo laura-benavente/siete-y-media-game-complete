@@ -51,12 +51,6 @@ button:hover {
   background: linear-gradient(to bottom, #ffc107, #218838); 
 }
 
-button:disabled {
-  background: rgb(146, 145, 145);
-  pointer-events: none;
-  cursor: not-allowed;
-}
-
 img {
   margin-top: 20px;
   max-width: 200px; 
